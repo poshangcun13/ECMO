@@ -1,0 +1,337 @@
+{
+  "rule_base_description": "This rule base is constructed based on pre-ECMO clinical indicators and is applicable for risk identification and clinical decision-making during the pre-initiation phase of ECMO. All thresholds are referenced from the ELSO 2024 Guidelines and the NHC ECMO Operational Standards in China.",
+  "correlations": {
+    "positive": [
+      {
+        "parameter_pair": ["Low Flow Time (min)", "Total Ischemic Time"],
+        "association_logic": "Low flow time is a core component of total ischemic time, with a strong positive correlation (correlation coefficient ~0.85).",
+        "alert_rules": [
+          "When low flow time > 30 minutes, immediate monitoring of total ischemic time is required.",
+          "If total ischemic time > 60 minutes, triggers 'Severe Myocardial Ischemia Alert'."
+        ],
+        "intervention_measures": "Initiate myocardial protection protocol (hypothermia therapy, anticoagulation therapy), assess need for urgent revascularization."
+      },
+      {
+        "parameter_pair": ["Arterial PCO₂ (pre-ECMO)", "pH (pre-ECMO)"],
+        "association_logic": "PCO₂ and pH are negatively correlated, reflecting respiratory acid-base imbalance (correlation coefficient ~-0.85).",
+        "alert_rules": [
+          "Pre-ECMO PCO₂ > 45 mmHg AND pH < 7.35 triggers 'Respiratory Acidosis Alert'.",
+          "Pre-ECMO PCO₂ < 35 mmHg AND pH > 7.45 triggers 'Respiratory Alkalosis Alert'."
+        ],
+        "intervention_measures": "Adjust ventilator parameters (tidal volume, respiratory rate), repeat blood gas analysis if necessary."
+      },
+      {
+        "parameter_pair": ["Hemoglobin (pre-ECMO)", "Platelets (pre-ECMO)"],
+        "association_logic": "Reflects oxygen-carrying capacity and coagulation function (correlation coefficient ~0.80).",
+        "alert_rules": [
+          "Hemoglobin < 100 g/L AND Platelets < 100 × 10⁹/L triggers 'Severe Anemia with Coagulopathy Alert'.",
+          "Normal Hemoglobin AND Platelets > 400 × 10⁹/L triggers 'Hypercoagulable State Alert'."
+        ],
+        "intervention_measures": "Transfuse RBCs/platelets, assess need for anticoagulant/antiplatelet therapy."
+      },
+      {
+        "parameter_pair": ["Total Number of Treatments", "CAG: Coronary Angiography"],
+        "association_logic": "Reflects complex cases requiring multiple assessments (correlation coefficient ~0.80).",
+        "alert_rules": [
+          "Total number of treatments ≥ 3 mandates CAG.",
+          "CAG showing multi-vessel disease (≥2 vessels with >70% stenosis) triggers 'Complex Coronary Artery Disease Alert'."
+        ],
+        "intervention_measures": "Upgrade treatment plan (consider CABG), initiate multidisciplinary consultation."
+      },
+      {
+        "parameter_pair": ["PCI: Percutaneous Coronary Intervention", "Total Number of Treatments"],
+        "association_logic": "PCI is a key component of the total treatment count (correlation coefficient ~0.80).",
+        "alert_rules": [
+          "Total treatments ≥ 2 AND PCI did not cover all diseased vessels triggers 'Incomplete Revascularization Alert'.",
+          "Post-PCI CK-MB elevation >3x ULN within 24 hours triggers 'Post-PCI Complication Alert'."
+        ],
+        "intervention_measures": "Consider repeat intervention, enhance post-procedure monitoring."
+      },
+      {
+        "parameter_pair": ["pH (pre-ECMO)", "Arterial PaO₂ (pre-ECMO)"],
+        "association_logic": "Reflects oxygenation and acid-base balance status (correlation coefficient ~0.70).",
+        "alert_rules": [
+          "PaO₂ < 60 mmHg AND pH < 7.35 triggers 'Severe Hypoxemia with Acidosis Alert'.",
+          "PaO₂ > 100 mmHg AND pH > 7.45 triggers 'Hyperventilation Alert'."
+        ],
+        "intervention_measures": "Adjust ventilator parameters (FiO₂, PEEP), consider vasoactive drugs if necessary."
+      },
+      {
+        "parameter_pair": ["Total Number of Treatments", "IABP: Intra-Aortic Balloon Pump"],
+        "association_logic": "Reflects risk of cardiac function deterioration (correlation coefficient ~0.70).",
+        "alert_rules": [
+          "Total treatments ≥ 2 AND LVEF < 30% triggers 'High-Risk Cardiac Function Alert'.",
+          "Manifestations of cardiogenic shock trigger 'Urgent IABP Support Alert'."
+        ],
+        "intervention_measures": "Initiate IABP immediately, assess ECMO support indications."
+      },
+      {
+        "parameter_pair": ["ECMO Support Duration (hours)", "Total Hospitalization Cost (CNY)"],
+        "association_logic": "Reflects critical care costs (correlation coefficient ~0.65).",
+        "alert_rules": [
+          "ECMO duration > 72 hours AND cost > 100,000 CNY triggers 'High-Cost Critical Care Alert'."
+        ],
+        "intervention_measures": "Multidisciplinary consultation to assess weaning timing, optimize treatment plan."
+      },
+      {
+        "parameter_pair": ["Total Hospitalization Cost (CNY)", "Post-Weaning Hospital Stay (days)"],
+        "association_logic": "Reflects resource utilization efficiency (correlation coefficient ~0.65).",
+        "alert_rules": [
+          "Post-weaning stay > 14 days AND cost > 150,000 CNY triggers 'Prolonged Hospitalization Alert'."
+        ],
+        "intervention_measures": "Initiate enhanced recovery program, assess transfer or home care possibility."
+      },
+      {
+        "parameter_pair": ["Platelets (pre-ECMO)", "pH (pre-ECMO)"],
+        "association_logic": "Reflects coagulation function and metabolic status (correlation coefficient ~0.60).",
+        "alert_rules": [
+          "Platelets < 50 × 10⁹/L AND pH < 7.30 triggers 'Severe Coagulopathy Alert'.",
+          "Platelets > 500 × 10⁹/L AND pH > 7.50 triggers 'Hypercoagulable State with Alkalosis Alert'."
+        ],
+        "intervention_measures": "Transfuse platelets/plasma, correct acid-base imbalance."
+      },
+      {
+        "parameter_pair": ["Serum Lactate (Lac) (pre-ECMO)", "Arterial PaO₂ (pre-ECMO)"],
+        "association_logic": "Reflects tissue perfusion and oxygenation status (correlation coefficient ~0.75).",
+        "alert_rules": [
+          "Lac > 4 mmol/L AND PaO₂ < 60 mmHg triggers 'Tissue Hypoxia Alert'."
+        ],
+        "intervention_measures": "Improve oxygenation index, assess need for vasoactive drug support."
+      },
+      {
+        "parameter_pair": ["Total Number of Treatments", "Serum Lactate (Lac) (pre-ECMO)"],
+        "association_logic": "Reflects treatment response and prognosis (correlation coefficient ~0.70).",
+        "alert_rules": [
+          "Total treatments ≥ 2 AND Lac > 2 mmol/L triggers 'Poor Treatment Response Alert'."
+        ],
+        "intervention_measures": "Re-evaluate treatment plan, consider treatment escalation."
+      },
+      {
+        "parameter_pair": ["Total Ischemic Time", "Serum Lactate (Lac) (pre-ECMO)"],
+        "association_logic": "Reflects severity of myocardial ischemia (correlation coefficient ~0.80).",
+        "alert_rules": [
+          "Total ischemic time > 60 minutes AND Lac > 2 mmol/L triggers 'Severe Myocardial Injury Alert'."
+        ],
+        "intervention_measures": "Enhance myocardial protection, assess need for mechanical circulatory support."
+      },
+      {
+        "parameter_pair": ["Arterial PaO₂ (pre-ECMO)", "Serum Lactate (Lac) (pre-ECMO)"],
+        "association_logic": "Reflects oxygenation and metabolic status (correlation coefficient ~0.75).",
+        "alert_rules": [
+          "PaO₂ < 60 mmHg AND Lac > 2 mmol/L triggers 'Severe Hypoxemia Alert'."
+        ],
+        "intervention_measures": "Optimize ventilator settings, consider PEEP if necessary."
+      },
+      {
+        "parameter_pair": ["Total Number of Treatments", "Serum Lactate (Lac) (pre-ECMO)"],
+        "association_logic": "Reflects treatment response and prognosis (correlation coefficient ~0.70).",
+        "alert_rules": [
+          "Total treatments ≥ 3 AND Lac > 2 mmol/L triggers 'Treatment Resistance Alert'."
+        ],
+        "intervention_measures": "Multidisciplinary consultation, consider alternative treatment options."
+      },
+      {
+        "parameter_pair": ["Total Ischemic Time", "Serum Lactate (Lac) (pre-ECMO)"],
+        "association_logic": "Reflects severity of myocardial ischemia (correlation coefficient ~0.80).",
+        "alert_rules": [
+          "Total ischemic time > 90 minutes AND Lac > 4 mmol/L triggers 'Extremely High-Risk Myocardial Injury Alert'."
+        ],
+        "intervention_measures": "Initiate ECMO support immediately, assess heart transplant candidacy."
+      },
+      {
+        "parameter_pair": ["Arterial PaO₂ (pre-ECMO)", "Serum Lactate (Lac) (pre-ECMO)"],
+        "association_logic": "Reflects oxygenation and metabolic status (correlation coefficient ~0.75).",
+        "alert_rules": [
+          "PaO₂ < 50 mmHg AND Lac > 4 mmol/L triggers 'Critical Hypoxemia Alert'."
+        ],
+        "intervention_measures": "Initiate ECMO immediately, optimize ventilator parameters."
+      },
+      {
+        "parameter_pair": ["Total Number of Treatments", "Serum Lactate (Lac) (pre-ECMO)"],
+        "association_logic": "Reflects treatment response and prognosis (correlation coefficient ~0.70).",
+        "alert_rules": [
+          "Total treatments ≥ 4 AND Lac > 2 mmol/L triggers 'Treatment Failure Alert'."
+        ],
+        "intervention_measures": "Comprehensive disease assessment, consider palliative care."
+      },
+      {
+        "parameter_pair": ["Total Ischemic Time", "Serum Lactate (Lac) (pre-ECMO)"],
+        "association_logic": "Reflects severity of myocardial ischemia (correlation coefficient ~0.80).",
+        "alert_rules": [
+          "Total ischemic time > 120 minutes AND Lac > 4 mmol/L triggers 'Irreversible Myocardial Injury Alert'."
+        ],
+        "intervention_measures": "Initiate end-of-life care procedures."
+      },
+      {
+        "parameter_pair": ["Arterial PaO₂ (pre-ECMO)", "Serum Lactate (Lac) (pre-ECMO)"],
+        "association_logic": "Reflects oxygenation and metabolic status (correlation coefficient ~0.75).",
+        "alert_rules": [
+          "PaO₂ < 40 mmHg AND Lac > 6 mmol/L triggers 'End-Stage Respiratory Failure Alert'."
+        ],
+        "intervention_measures": "Initiate end-of-life care procedures."
+      }
+    ],
+    "negative": [
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "Hemoglobin (pre-ECMO)"],
+        "association_logic": "Out-of-hospital cardiac arrest (OHCA) patients typically have lower hemoglobin levels (correlation coefficient ~-0.75).",
+        "alert_rules": [
+          "OHCA AND Hemoglobin < 90 g/L triggers 'Severe Anemia Alert'."
+        ],
+        "intervention_measures": "Transfuse RBCs immediately, assess cause of blood loss."
+      },
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "Platelets (pre-ECMO)"],
+        "association_logic": "OHCA patients have lower platelet counts (correlation coefficient ~-0.65).",
+        "alert_rules": [
+          "OHCA AND Platelets < 80 × 10⁹/L triggers 'Coagulopathy Alert'."
+        ],
+        "intervention_measures": "Transfuse platelets, monitor coagulation function."
+      },
+      {
+        "parameter_pair": ["Bystander CPR", "No-Flow Time (min)"],
+        "association_logic": "Bystander CPR can shorten no-flow time (correlation coefficient ~-0.55).",
+        "alert_rules": [
+          "No bystander CPR AND No-flow time > 5 minutes triggers 'Delayed Resuscitation Alert'."
+        ],
+        "intervention_measures": "Strengthen public CPR training, optimize emergency response protocols."
+      },
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "LVEF (pre-ECMO)"],
+        "association_logic": "OHCA patients have worse cardiac function (correlation coefficient ~-0.50).",
+        "alert_rules": [
+          "OHCA AND LVEF < 30% triggers 'High-Risk Cardiac Function Alert'."
+        ],
+        "intervention_measures": "Assess indications for mechanical circulatory support."
+      },
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "pH (pre-ECMO)"],
+        "association_logic": "OHCA patients are more prone to acidosis (correlation coefficient ~-0.45).",
+        "alert_rules": [
+          "OHCA AND pH < 7.25 triggers 'Severe Acidosis Alert'."
+        ],
+        "intervention_measures": "Correct acid-base imbalance, optimize ventilation strategy."
+      },
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "Bystander CPR"],
+        "association_logic": "Lower rate of bystander CPR in OHCA (correlation coefficient ~-0.40).",
+        "alert_rules": [
+          "OHCA AND No bystander CPR triggers 'Resuscitation Delay Alert'."
+        ],
+        "intervention_measures": "Enhance public emergency education."
+      },
+      {
+        "parameter_pair": ["Bystander CPR", "Total Ischemic Time"],
+        "association_logic": "Bystander CPR can shorten total ischemic time (correlation coefficient ~-0.35).",
+        "alert_rules": [
+          "Total ischemic time > 30 minutes despite bystander CPR triggers 'Persistent Ischemia Alert'."
+        ],
+        "intervention_measures": "Assess need for ECMO support."
+      },
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "Arterial PCO₂ (pre-ECMO)"],
+        "association_logic": "OHCA patients have worse ventilation status (correlation coefficient ~-0.30).",
+        "alert_rules": [
+          "OHCA AND PCO₂ > 50 mmHg triggers 'Hypoventilation Alert'."
+        ],
+        "intervention_measures": "Adjust ventilator parameters."
+      },
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "White Blood Cell Count (pre-ECMO)"],
+        "association_logic": "OHCA patients exhibit more pronounced inflammatory response (correlation coefficient ~-0.25).",
+        "alert_rules": [
+          "OHCA AND WBC > 15 × 10⁹/L triggers 'Systemic Inflammation Alert'."
+        ],
+        "intervention_measures": "Assess infection risk."
+      },
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "Arterial PO₂ (pre-ECMO)"],
+        "association_logic": "OHCA patients have worse oxygenation status (correlation coefficient ~-0.20).",
+        "alert_rules": [
+          "OHCA AND PO₂ < 60 mmHg triggers 'Hypoxemia Alert'."
+        ],
+        "intervention_measures": "Increase FiO₂."
+      },
+      {
+        "parameter_pair": ["Rescue Mode (On-site ECPR/Hospital ECPR)", "PCI: Percutaneous Coronary Intervention"],
+        "association_logic": "Lower PCI rates in on-site ECPR patients (correlation coefficient ~-0.15).",
+        "alert_rules": [
+          "On-site ECPR AND No PCI performed triggers 'Insufficient Revascularization Alert'."
+        ],
+        "intervention_measures": "Assess PCI indications."
+      },
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "CK-MB (pre-ECMO)"],
+        "association_logic": "OHCA patients have more severe myocardial injury (correlation coefficient ~-0.10).",
+        "alert_rules": [
+          "OHCA AND CK-MB > 50 U/L triggers 'Myocardial Injury Alert'."
+        ],
+        "intervention_measures": "Enhance myocardial protection."
+      },
+      {
+        "parameter_pair": ["Rescue Mode (On-site ECPR/Hospital ECPR)", "CAG: Coronary Angiography"],
+        "association_logic": "Lower CAG rates in on-site ECPR patients (correlation coefficient ~-0.05).",
+        "alert_rules": [
+          "On-site ECPR AND No CAG performed triggers 'Insufficient Coronary Assessment Alert'."
+        ],
+        "intervention_measures": "Assess necessity of CAG."
+      },
+      {
+        "parameter_pair": ["Rescue Mode (On-site ECPR/Hospital ECPR)", "Total Number of Treatments"],
+        "association_logic": "Fewer treatment sessions in on-site ECPR patients (correlation coefficient ~-0.04).",
+        "alert_rules": [
+          "On-site ECPR AND Total treatments < 2 triggers 'Insufficient Treatment Alert'."
+        ],
+        "intervention_measures": "Evaluate treatment plan."
+      },
+      {
+        "parameter_pair": ["No-Flow Time (min)", "Hemoglobin (pre-ECMO)"],
+        "association_logic": "Prolonged no-flow time correlates with decreased hemoglobin (correlation coefficient ~-0.03).",
+        "alert_rules": [
+          "No-flow time > 10 minutes AND Hemoglobin < 80 g/L triggers 'Severe Anemia Alert'."
+        ],
+        "intervention_measures": "Transfuse RBCs."
+      },
+      {
+        "parameter_pair": ["Cardiac Arrest Location (In-Hospital/Out-of-Hospital)", "Total Hospitalization Cost (CNY)"],
+        "association_logic": "Lower hospitalization costs for OHCA patients (correlation coefficient ~-0.02).",
+        "alert_rules": [
+          "OHCA AND Hospitalization cost < 50,000 CNY triggers 'Resource Utilization Alert'."
+        ],
+        "intervention_measures": "Assess medical resource allocation."
+      },
+      {
+        "parameter_pair": ["No-Flow Time (min)", "Platelets (pre-ECMO)"],
+        "association_logic": "Prolonged no-flow time correlates with decreased platelets (correlation coefficient ~-0.01).",
+        "alert_rules": [
+          "No-flow time > 10 minutes AND Platelets < 50 × 10⁹/L triggers 'Coagulopathy Alert'."
+        ],
+        "intervention_measures": "Transfuse platelets."
+      },
+      {
+        "parameter_pair": ["Total Ischemic Time", "Total Number of Treatments"],
+        "association_logic": "Prolonged total ischemic time correlates with increased treatments (correlation coefficient ~-0.01).",
+        "alert_rules": [
+          "Total ischemic time > 60 minutes AND Total treatments < 3 triggers 'Insufficient Treatment Alert'."
+        ],
+        "intervention_measures": "Evaluate treatment plan."
+      },
+      {
+        "parameter_pair": ["APACHE II Score", "CAG: Coronary Angiography"],
+        "association_logic": "Higher APACHE II score correlates with lower CAG rate (correlation coefficient ~-0.01).",
+        "alert_rules": [
+          "APACHE II Score > 20 AND No CAG performed triggers 'Insufficient Coronary Assessment Alert'."
+        ],
+        "intervention_measures": "Assess feasibility of CAG."
+      },
+      {
+        "parameter_pair": ["Age (years)", "Marital Status"],
+        "association_logic": "Increasing age correlates with changes in marital status (correlation coefficient ~-0.01).",
+        "alert_rules": [
+          "Age > 70 years AND Marital Status is 'Unmarried' triggers 'Social Support Alert'."
+        ],
+        "intervention_measures": "Assess social support system."
+      }
+    ]
+  }
+}

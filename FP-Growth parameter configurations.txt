@@ -1,0 +1,49 @@
+# FP-Growth Knowledge Base Parameter Configuration
+# -----------------------------------------------
+# Version: v0.22.0 (Python mlxtend.fpgrowth)
+# Total ECMO cases: N = 266
+# Clinical validation: thresholds reviewed by 3 senior ECMO clinicians
+
+# -----------------------------------------------
+# Algorithm Parameters
+# -----------------------------------------------
+min_support = 0.05           # minimum support threshold (stage-specific adjustments below)
+min_confidence = 0.70        # minimum confidence threshold
+# For low-sample stage "Complication Event" (n=31)
+min_support_low_sample = 0.04 # adaptive minimum support for rare but critical patterns
+
+# -----------------------------------------------
+# Data Preprocessing
+# -----------------------------------------------
+# Continuous variables:
+#   - Hybrid discretization: clinical-threshold binning + supervised equal-frequency binning
+#   - Examples:
+#       Lactate: <=2 (normal), 2-4 (mild elevation), >4 (severe elevation)
+#       PO2: >=90 (normal), 60-90 (hypoxemia), <60 (severe hypoxemia)
+#       Low-flow time: <=30 min, >30 min
+#   - Other variables without clinical thresholds:
+#       Platelet: 3 bins (<=80, 80-150, >150 x10^9/L)
+#       ECMO duration: 4 bins (<=24, 24-72, 72-168, >168 h)
+#   - Implementation: pandas.qcut (duplicates='drop') on 80% training set
+# Categorical variables: one-hot encoding after semantic normalization
+# Ordinal variables: retained as integer values
+
+# -----------------------------------------------
+# Feature Selection
+# -----------------------------------------------
+# Spearman correlation and statistical significance testing (p < 0.05)
+# Candidate features strongly associated with outcome are retained
+# Reduces search space and improves rule stability
+
+# -----------------------------------------------
+# Rule Metrics
+# -----------------------------------------------
+# support(X => Y) = count(X U Y) / N
+# confidence(X => Y) = count(X U Y) / count(X)
+
+# -----------------------------------------------
+# Validation & Reproducibility
+# -----------------------------------------------
+# Thresholds fixed for cross-validation
+# Rare but clinically critical rules preserved
+# All thresholds reviewed by clinical experts for plausibility and interpretability
